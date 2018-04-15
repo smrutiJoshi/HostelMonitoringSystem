@@ -5,7 +5,11 @@ import java.sql.Statement;
 
 import javax.sql.DataSource;
 
-import com.in28minutes.springboot.web.rest.model.Registers;;
+import org.hibernate.Session;
+
+import com.in28minutes.springboot.web.rest.model.Register;
+import com.in28minutes.springboot.web.rest.model.Registers;
+import com.in28minutes.springboot.web.rest.util.HibernateUtil;;
 
 public class RegistersDao {
 	 public Integer insertUser(DataSource dataSource , Registers registers ) {
@@ -47,6 +51,45 @@ public class RegistersDao {
 		 
 	 }
 	 
+	 public Integer insertUser1() {
+		 System.out.println("Hibernate one to many (Annotation)");
+			Session session = HibernateUtil.getSessionFactory().openSession();
+
+			session.beginTransaction();
+
+			    Register register = new Register();
+			    register.setAddr("Satode Valpoi Sattari Goa");
+			    register.setBranch("ETC");
+			    register.setChecked(false);
+			    register.setDob("14-06-2005");
+			    register.setName("Vinod");
+			    register.setPassword("admin");
+			    register.setPhno("2318677");
+			    register.setRegistered(false);
+			    register.setRollno("2001");
+			    register.setSem("2");
+			   
+		        session.save(register);
+		        
+		        StockDailyRecord stockDailyRecords = new StockDailyRecord();
+		        stockDailyRecords.setPriceOpen(new Float("1.2"));
+		        stockDailyRecords.setPriceClose(new Float("1.1"));
+		        stockDailyRecords.setPriceChange(new Float("10.0"));
+		        stockDailyRecords.setVolume(3000000L);
+		        stockDailyRecords.setDate(new Date());
+		        
+		        stockDailyRecords.setStock(stock);        
+		        stock.getStockDailyRecords().add(stockDailyRecords);
+
+		        session.save(stockDailyRecords);
+
+			session.getTransaction().commit();
+			System.out.println("Done");
+		 
+		 
+		 return null;
+		 
+	 }
 	 
 	 public Integer getRequestedStudents(DataSource dataSource , RegistersDao registers ) {
 		 int isRegistered=0;

@@ -1,11 +1,19 @@
 package com.in28minutes.springboot.web.rest.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.in28minutes.springboot.web.rest.model.Semconfirm;
+
 
 @Entity(name="registers")
-public class Register {
+public class Register implements java.io.Serializable {
 	@Id 
 	private String rollno;
 	  private String name;
@@ -20,9 +28,31 @@ public class Register {
 	  boolean isChecked;
 	  private String username;
 	  private String password;
-	 
+	  private Set<Semconfirm> semConfirmRecords = new HashSet<Semconfirm>(0);
 	  
-	  @Column (name ="username")
+	  
+	  public Register(){
+		  this.isChecked=false;
+		  this.isRegistered=false;
+	  }
+	  
+	  
+	  public Register( String rollno,String name, String addr,String phno,String branch,String sem,String dob,boolean isRegistered,boolean isChecked,String username,String password,Set<Semconfirm> semConfirmRecords){
+		  this.rollno=rollno;
+		  this.name=name;
+		  this.addr=addr;
+		  this.phno=phno;
+		  this.branch=branch;
+		  this.sem=sem;
+		  this.dob=dob;
+		  this.isChecked=false;
+		  this.isRegistered=false;
+		  this.username=username;
+		  this.password=password;
+		  this.semConfirmRecords=semConfirmRecords;
+	  }
+
+	@Column (name ="username")
 	  public String getUsername() {
 		return username;
 	}
@@ -37,10 +67,7 @@ public class Register {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Register(){
-		  this.isChecked=false;
-		  this.isRegistered=false;
-	  }
+	
 	
 	@Column (name ="name")
 	public String getName() {
@@ -113,6 +140,15 @@ public class Register {
 	public void setChecked(boolean isChecked) {
 		this.isChecked = isChecked;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "semconfirm")
+	 public Set<Semconfirm> getSemConfirmRecords() {
+			return semConfirmRecords;
+		}
+
+		public void setSemConfirmRecords(Set<Semconfirm> semConfirmRecords) {
+			this.semConfirmRecords = semConfirmRecords;
+		}
 	
 	@Override
 	public String toString() {
