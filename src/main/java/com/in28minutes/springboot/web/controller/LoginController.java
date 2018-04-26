@@ -3,6 +3,7 @@ package com.in28minutes.springboot.web.controller;
 //import  org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +26,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.in28minutes.springboot.web.rest.dao.*;
 import com.in28minutes.springboot.web.rest.model.Register;
 import com.in28minutes.springboot.web.rest.model.Registers;
+import com.in28minutes.springboot.web.rest.model.Semconfirm;
 //import com.in28minutes.springboot.web.model.scredential;
 //import com.in28minutes.springboot.web.model.scredential;
 import com.in28minutes.springboot.web.rest.model.credential;
@@ -68,14 +71,15 @@ public class LoginController {
         String json = (String)result1.getBody();
         Gson gson = new Gson();
        
-        Register register= gson.fromJson(json, Register.class);
-        
-         System.out.println("\n77777777777777777777777777777777777"+register.getPassword());
+     //  List<Semconfirm> sc= gson.fromJson(json, List.class);
+        TypeToken<List<Semconfirm>> token = new TypeToken<List<Semconfirm>>() {};
+        List<Semconfirm> sc = gson.fromJson(json, token.getType());
+       System.out.println("######################"+sc.get(0).getSemconfirmid());
 			
         //return "success";
 		
 		
-		return new ModelAndView("viewrequest", "registers", register);
+		return new ModelAndView("viewrequest", "SemConfirm", sc);
 		
 		//model.put("name", getLoggedinUserName());
 		//return "login";

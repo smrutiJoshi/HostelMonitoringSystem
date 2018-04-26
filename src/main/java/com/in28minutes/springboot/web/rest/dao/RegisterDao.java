@@ -16,7 +16,9 @@ import org.hibernate.Session;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.in28minutes.springboot.web.rest.model.Register;
 import com.in28minutes.springboot.web.rest.model.Registers;
 import com.in28minutes.springboot.web.rest.model.Semconfirm;
@@ -164,8 +166,9 @@ public class RegisterDao {
            
            try {
                // get Employee object as a json string
-                jsonStr = mapperObj.writeValueAsString(list.get(0));
-               System.out.println("######################"+jsonStr);
+                jsonStr = mapperObj.writeValueAsString(list);
+                //System.out.println("$$$$$$$$$$$$$$$$$$$$$"+list.get(0).getSemconfirmid());
+               
            } catch (IOException e) {
                // TODO Auto-generated catch block
                e.printStackTrace();
