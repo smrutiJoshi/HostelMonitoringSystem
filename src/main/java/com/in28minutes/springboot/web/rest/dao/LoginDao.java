@@ -23,7 +23,7 @@ public class LoginDao {
 			
 			conn = dataSource.getConnection();	
 			stmt = conn.createStatement();
-			String sql = 	"SELECT * from credential where username='"+cred.getUsername()+"' and password='"+cred.getPassword()+"';"; 
+			String sql="SELECT * from credential where username='"+cred.getUsername()+"' and password='"+cred.getPassword()+"';"; 
 			 
 			rs = stmt.executeQuery(sql);
 				    while(rs.next()) {

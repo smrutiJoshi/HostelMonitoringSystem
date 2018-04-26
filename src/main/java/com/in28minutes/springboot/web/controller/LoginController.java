@@ -24,7 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.in28minutes.springboot.web.rest.dao.*;
+import com.in28minutes.springboot.web.rest.model.Register;
+import com.in28minutes.springboot.web.rest.model.Registers;
 //import com.in28minutes.springboot.web.model.scredential;
 //import com.in28minutes.springboot.web.model.scredential;
 import com.in28minutes.springboot.web.rest.model.credential;
@@ -50,6 +53,34 @@ public class LoginController {
 //		//return "welcome";
 //	}
 
+	@RequestMapping(value = "/details", method = RequestMethod.GET)
+	public ModelAndView showRequestedStudents(ModelMap model) {
+		 System.out.println("\n888888888888888888888888888888");
+		final String uri = "http://localhost:8888/registerMapping/details";
+		
+		HttpHeaders headers = new HttpHeaders();
+    	
+    	headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+    	headers.setContentType(MediaType.APPLICATION_JSON);
+    	RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<String> requestEntity = new HttpEntity<String>("parameters", headers);
+        ResponseEntity<String> result1 = restTemplate.exchange(uri, HttpMethod.GET,requestEntity, String.class);
+        String json = (String)result1.getBody();
+        Gson gson = new Gson();
+       
+        Register register= gson.fromJson(json, Register.class);
+        
+         System.out.println("\n77777777777777777777777777777777777"+register.getPassword());
+			
+        //return "success";
+		
+		
+		return new ModelAndView("viewrequest", "registers", register);
+		
+		//model.put("name", getLoggedinUserName());
+		//return "login";
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView showWelcomePage(ModelMap model) {
 		return new ModelAndView("login", "credential", new com.in28minutes.springboot.web.rest.model.credential());

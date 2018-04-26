@@ -3,36 +3,44 @@ package com.in28minutes.springboot.web.rest.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import static javax.persistence.GenerationType.IDENTITY;
+
 
 import com.in28minutes.springboot.web.rest.model.Semconfirm;
 
-
-@Entity(name="registers")
+@Entity
+@Table(name="REGISTERS")
 public class Register implements java.io.Serializable {
-	@Id 
-	private String rollno;
+	 //private static final GenerationType IDENTITY = null;
+	
+	  private String rollno;
 	  private String name;
-		
 	  private String addr;
 	  private String phno;
 	  private String branch;
-	  private String sem;
-			 
+	 // private String sem;
 	  private String dob;
 	  boolean isRegistered;
-	  boolean isChecked;
+	 // boolean isChecked;
 	  private String username;
 	  private String password;
-	  private Set<Semconfirm> semConfirmRecords = new HashSet<Semconfirm>(0);
+	  
+	 
+	  private Set<Semconfirm> semConfirmRecords;
 	  
 	  
 	  public Register(){
-		  this.isChecked=false;
+		  //this.isChecked=false;
 		  this.isRegistered=false;
 	  }
 	  
@@ -43,9 +51,9 @@ public class Register implements java.io.Serializable {
 		  this.addr=addr;
 		  this.phno=phno;
 		  this.branch=branch;
-		  this.sem=sem;
+		 // this.sem=sem;
 		  this.dob=dob;
-		  this.isChecked=false;
+		  //this.isChecked=false;
 		  this.isRegistered=false;
 		  this.username=username;
 		  this.password=password;
@@ -60,6 +68,7 @@ public class Register implements java.io.Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
 	@Column (name ="Password")
 	public String getPassword() {
 		return password;
@@ -76,7 +85,10 @@ public class Register implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column (name ="rollno")
+	
+	
+	@Id
+	@Column(name = "rollno", unique = true, nullable = false)
 	public String getRollno() {
 		return rollno;
 	}
@@ -85,6 +97,7 @@ public class Register implements java.io.Serializable {
 		System.out.println("In Model ########==."+rollno);
 		this.rollno = rollno;
 	}
+	
 	@Column (name ="addr")
 	public String getAddr() {
 		return addr;
@@ -109,13 +122,13 @@ public class Register implements java.io.Serializable {
 		this.branch = branch;
 	}
 	
-	@Column (name ="sem")
+	/*@Column (name ="sem")
 	public String getSem() {
 		return sem;
 	}
 	public void setSem(String sem) {
 		this.sem = sem;
-	}
+	}*/
 	
 	@Column (name ="dob")
 	public String getDob() {
@@ -133,16 +146,17 @@ public class Register implements java.io.Serializable {
 		this.isRegistered = isRegistered;
 	}
 	
-	@Column (name ="isChecked")
-	public boolean isChecked() {
-		return isChecked;
-	}
-	public void setChecked(boolean isChecked) {
-		this.isChecked = isChecked;
-	}
+//	@Column (name ="ischecked")
+//	public boolean isChecked() {
+//		return isChecked;
+//	}
+//	public void setChecked(boolean isChecked) {
+//		this.isChecked = isChecked;
+//	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "semconfirm")
-	 public Set<Semconfirm> getSemConfirmRecords() {
+	
+	@OneToMany(mappedBy = "register",cascade = CascadeType.ALL)
+    public Set<Semconfirm> getSemConfirmRecords() {
 			return semConfirmRecords;
 		}
 
@@ -150,12 +164,12 @@ public class Register implements java.io.Serializable {
 			this.semConfirmRecords = semConfirmRecords;
 		}
 	
-	@Override
-	public String toString() {
-		return "Registers [rollno=" + rollno + ", name=" + name + ", addr=" + addr + ", phno=" + phno + ", branch="
-				+ branch + ", sem=" + sem + ", dob=" + dob + ", isRegistered=" + isRegistered + ", isChecked="
-				+ isChecked + ", username=" + username + ", password=" + password + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Registers [rollno=" + rollno + ", name=" + name + ", addr=" + addr + ", phno=" + phno + ", branch="
+//				+ branch + ", sem=" + sem + ", dob=" + dob + ", isRegistered=" + isRegistered + ", isChecked="
+//				+ isChecked + ", username=" + username + ", password=" + password + "]";
+//	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -163,13 +177,13 @@ public class Register implements java.io.Serializable {
 		result = prime * result + ((addr == null) ? 0 : addr.hashCode());
 		result = prime * result + ((branch == null) ? 0 : branch.hashCode());
 		result = prime * result + ((dob == null) ? 0 : dob.hashCode());
-		result = prime * result + (isChecked ? 1231 : 1237);
+		//result = prime * result + (isChecked ? 1231 : 1237);
 		result = prime * result + (isRegistered ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phno == null) ? 0 : phno.hashCode());
 		result = prime * result + ((rollno == null) ? 0 : rollno.hashCode());
-		result = prime * result + ((sem == null) ? 0 : sem.hashCode());
+		//result = prime * result + ((sem == null) ? 0 : sem.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -197,8 +211,8 @@ public class Register implements java.io.Serializable {
 				return false;
 		} else if (!dob.equals(other.dob))
 			return false;
-		if (isChecked != other.isChecked)
-			return false;
+		/*if (isChecked != other.isChecked)
+			return false;*/
 		if (isRegistered != other.isRegistered)
 			return false;
 		if (name == null) {
@@ -221,11 +235,11 @@ public class Register implements java.io.Serializable {
 				return false;
 		} else if (!rollno.equals(other.rollno))
 			return false;
-		if (sem == null) {
+		/*if (sem == null) {
 			if (other.sem != null)
 				return false;
 		} else if (!sem.equals(other.sem))
-			return false;
+			return false;*/
 		if (username == null) {
 			if (other.username != null)
 				return false;

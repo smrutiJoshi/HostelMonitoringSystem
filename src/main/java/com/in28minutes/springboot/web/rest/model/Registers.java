@@ -4,9 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name="registers")
+
 public class Registers {
-	@Id 
+	
 	private String rollno;
 	  private String name;
 		
@@ -22,7 +22,7 @@ public class Registers {
 	  private String password;
 	 
 	  
-	  @Column (name ="username")
+	 
 	  public String getUsername() {
 		return username;
 	}
@@ -30,7 +30,7 @@ public class Registers {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	@Column (name ="Password")
+	
 	public String getPassword() {
 		return password;
 	}
@@ -42,14 +42,14 @@ public class Registers {
 this.isRegistered=false;
 	  }
 	
-	@Column (name ="name")
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	@Column (name ="rollno")
+	
 	public String getRollno() {
 		return rollno;
 	}
@@ -58,7 +58,7 @@ this.isRegistered=false;
 		System.out.println("In Model ########==."+rollno);
 		this.rollno = rollno;
 	}
-	@Column (name ="addr")
+	
 	public String getAddr() {
 		return addr;
 	}
@@ -66,7 +66,7 @@ this.isRegistered=false;
 		this.addr = addr;
 	}
 	
-	@Column (name ="phno")
+	
 	public String getPhno() {
 		return phno;
 	}
@@ -74,7 +74,7 @@ this.isRegistered=false;
 		this.phno = phno;
 	}
 	
-	@Column (name ="branch")
+	
 	public String getBranch() {
 		return branch;
 	}
@@ -82,7 +82,7 @@ this.isRegistered=false;
 		this.branch = branch;
 	}
 	
-	@Column (name ="sem")
+	
 	public String getSem() {
 		return sem;
 	}
@@ -90,7 +90,7 @@ this.isRegistered=false;
 		this.sem = sem;
 	}
 	
-	@Column (name ="dob")
+	
 	public String getDob() {
 		return dob;
 	}
@@ -98,7 +98,7 @@ this.isRegistered=false;
 		this.dob = dob;
 	}
 	
-	@Column (name ="isregistered")
+	
 	public boolean isRegistered() {
 		return isRegistered;
 	}
@@ -106,7 +106,7 @@ this.isRegistered=false;
 		this.isRegistered = isRegistered;
 	}
 	
-	@Column (name ="isChecked")
+	
 	public boolean isChecked() {
 		return isChecked;
 	}

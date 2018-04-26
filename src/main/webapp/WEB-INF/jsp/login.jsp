@@ -11,7 +11,7 @@
             	if(strUserType=="admin")
             	document.loginForm.action = "/LoginController";
                else
-            	   document.loginForm.action = "/LoginController";  
+            	   document.loginForm.action = "/LoginStudentController";  
             	//document.loginForm.submit();
             	
             	//alert(strUserType);
